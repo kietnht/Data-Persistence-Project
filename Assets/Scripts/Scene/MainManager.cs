@@ -98,7 +98,8 @@ public class MainManager : MonoBehaviour
             ShareData.Instance.BestPlayerName = ShareData.Instance.playerName;
 
             DisplayBestScore();
-            ShareData.SaveScore();
+            ShareData.SaveBestScore();
         }
+        ShareData.EvaluateScore(m_Points);
     }
 }

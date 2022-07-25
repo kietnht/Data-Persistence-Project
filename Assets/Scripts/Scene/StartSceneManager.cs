@@ -13,6 +13,7 @@ public class StartSceneManager : MonoBehaviour
 {
     public Text textBestScore;
     public InputField playerInput;
+    public GameObject nameErrorMessage;
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +33,22 @@ public class StartSceneManager : MonoBehaviour
         string playerName = "NoName";
         if(!playerInput.text.Equals("Enter Player Name..."))
         {
-            playerName = playerInput.text;
+            //validate data
+            if (ValidName(playerInput.text))
+                playerName = playerInput.text;
+            else
+            {
+                nameErrorMessage.SetActive(true);
+                return;
+            }
         }
         ShareData.Instance.playerName = playerName;
         SceneManager.LoadScene(1);
+    }
+
+    public void StartHighScore()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void QuitGame()
@@ -45,5 +58,10 @@ public class StartSceneManager : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public bool ValidName(string name)
+    {
+        return (name.Length > 0 && name.Length <= 15);
     }
 }
